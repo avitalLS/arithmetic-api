@@ -1,0 +1,63 @@
+openapi: 3.0.0
+info:
+  title: Arithmetic Operations API
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/AVITALMORIS_1/Arithmetic_api/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: https://virtserver.swaggerhub.com/AVITALM/calculate/1.0.0
+  description: SwaggerHub API Auto Mocking
+paths:
+  /calculate:
+    post:
+      summary: Perform arithmetic operation on two numbers
+      operationId: calculate
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/calculate_body'
+        required: true
+      responses:
+        "200":
+          description: Operation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+        "401":
+          description: Unauthorized
+      x-swagger-router-controller: Default
+components:
+  schemas:
+    calculate_body:
+      type: object
+      properties:
+        num1:
+          type: number
+        num2:
+          type: number
+        operation:
+          type: string
+          enum:
+          - addition
+          - subtraction
+          - multiplication
+          - division
+          - modulus
+          - exponentiation
+    inline_response_200:
+      type: object
+      properties:
+        result:
+          type: number
+      example:
+        result: 0.80082819046101150206595775671303272247314453125
